@@ -1,5 +1,6 @@
-// NMEA-0183 リーダ
-
+// Performance boxリーダ
+//VSDメーターのrefference
+//https://yoshinrt.github.io/vsd/log_reader.html
 LogReaderInfo.push({
 	Caption:	"Performance box (*.vbo*)",
 	Filter:		"*.vbo",
@@ -65,17 +66,13 @@ function Read_vbo( Files ){
 			
 			var Long = +Param[ 3 ];
 			Long = ~~( Long / 100 ) + ( Long % 100 / 60 );
-			//if( Param[ 6 ] == 'W' ) Long = -Long;
 			
 			var Lati = +Param[ 2 ];
 			Lati = ~~( Lati / 100 ) + ( Lati % 100 / 60 );
-			//if( Param[ 4 ] == 'S' ) Lati = -Lati;
-			
+			//西経なので正負反転
 			Log.Longitude[ Cnt ] = -Long;
 			Log.Latitude [ Cnt ] = Lati;
 			
-			//Log.Longitude[ Cnt ] = Param[ 3 ];
-			//Log.Latitude [ Cnt ] = Param[ 2 ];
 			
 			// Speed がある場合は Array 作成
 			if( Param[ 4 ] != '' ){
